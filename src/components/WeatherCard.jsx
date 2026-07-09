@@ -1,15 +1,19 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
+import './WeatherCard.css'
 
 const WeatherCard = ({ city, temperature, condition, humidity, windSpeed }) => {
-  console.log('WeatherCard props:', { city, temperature, condition, humidity, windSpeed });
   return (
-    <div>
-      <h2>📍 {city}</h2>
-      <p>🌡️ {temperature}°C</p>
-      <p>☁️ {condition || 'N/A'}</p>
-      <p>💧 Humidity: {humidity}%</p>
-      <p>🌬️ Wind: {windSpeed} km/h</p>
+    <div className="weather-card">
+      <div className="weather-card__header">
+        <h2 className="weather-card__city">📍 {city}</h2>
+        <p className="weather-card__temp">{temperature}°C</p>
+      </div>
+      <p className="weather-card__condition">☁️ {condition || 'N/A'}</p>
+      <div className="weather-card__details">
+        <p className="weather-card__detail">💧 Humidity: {humidity}%</p>
+        <p className="weather-card__detail">🌬️ Wind: {windSpeed} km/h</p>
+      </div>
     </div>
   )
 }

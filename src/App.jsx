@@ -4,6 +4,7 @@ import SearchBar from './components/SearchBar';
 import WeatherCard from './components/WeatherCard';
 import ErrorMessage from './components/ErrorMessage';
 import Loader from './components/Loader';
+import SearchHistory from './components/SearchHistory';
 
 function App() {
   const [city, setCity] = useState('');
@@ -40,10 +41,6 @@ function App() {
 
 
   return (
-    // <>
-    //   <SearchBar />
-    //   <WeatherCard />
-    // </>
     <div className="app-container">
       <h1>🌦 Weather Dashboard</h1>
       <SearchBar onSearch={handleSearch} />
