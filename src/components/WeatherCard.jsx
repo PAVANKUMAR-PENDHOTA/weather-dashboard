@@ -9,7 +9,7 @@ const WeatherCard = ({ city, temperature, description, humidity, windSpeed }) =>
         <h2 className="weather-card__city">📍 {city}</h2>
         <p className="weather-card__temp">{temperature}°C</p>
       </div>
-      <p className="weather-card__description">☁️ {description || 'N/A'}</p>
+      <p className="weather-card__description">☁️ Condition: {description}</p>
       <div className="weather-card__details">
         <p className="weather-card__detail">💧 Humidity: {humidity}%</p>
         <p className="weather-card__detail">🌬️ Wind: {windSpeed} km/h</p>
