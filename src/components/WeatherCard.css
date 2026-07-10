@@ -29,7 +29,7 @@
   color: #2563eb;
 }
 
-.weather-card__condition {
+.weather-card__description {
   font-size: 1rem;
   margin: 0.5rem 0 1rem;
   text-transform: capitalize;
