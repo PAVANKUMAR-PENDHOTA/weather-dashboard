@@ -5,12 +5,19 @@ import WeatherCard from './components/WeatherCard';
 import ErrorMessage from './components/ErrorMessage';
 import Loader from './components/Loader';
 import SearchHistory from './components/SearchHistory';
+import { loadSearchHistory, addToSearchHistory } from './utils/helpers';
+import './App.css';
 
 function App() {
-  const [city, setCity] = useState('');
   const [weather, setWeather] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [searchHistory, setSearchHistory] = useState(() => loadSearchHistory());
+
+  // useEffect(() => {
+  //   const history = loadSearchHistory();
+  //   setSearchHistory(history);
+  // }, []);
 
   const handleSearch = async (city) => {
     setLoading(true);
@@ -32,6 +39,10 @@ function App() {
 
       const data = await response.json();
       setWeather(data);
+      
+      // Add to search history
+      const updatedHistory = addToSearchHistory(city);
+      setSearchHistory(updatedHistory);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -42,19 +53,40 @@ function App() {
 
   return (
     <div className="app-container">
-      <h1>🌦 Weather Dashboard</h1>
-      <SearchBar onSearch={handleSearch} />
-      <ErrorMessage error={error} />
-      {loading && <Loader />}
+      <h1>🌦️ Weather Dashboard</h1>
+      
+      <div className="search-bar-container">
+        <SearchBar onSearch={handleSearch} />
+      </div>
 
+      {/* <div className="app-info">
+        <p className="app-description">Enter a city name to get the current weather information.</p>
+      </div> */}
+
+      <div className="loader-container">
+        {loading && <Loader />}
+        {error && <ErrorMessage error={error} />}
+      </div>
+      
       {!loading && weather && (
-        <WeatherCard
-          city={weather.name}
-          temperature={weather.main.temp}
-          description={weather.weather[0].description}
-          humidity={weather.main.humidity}
-          windSpeed={weather.wind.speed}
-        />
+        <div className="app-content-wrapper">
+          <div className="weather-card-container">
+            <WeatherCard
+              city={weather.name}
+              temperature={weather.main.temp}
+              description={weather.weather[0].description}
+              humidity={weather.main.humidity}
+              windSpeed={weather.wind.speed}
+              weatherMain={weather.weather[0].main}
+            />
+          </div>
+        </div>
+      )}
+
+      {searchHistory.length > 0 && (
+        <div className="search-history-section">
+          <SearchHistory history={searchHistory} onCityClick={handleSearch} />
+        </div>
       )}
     </div>
   )

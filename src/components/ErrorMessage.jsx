@@ -1,10 +1,14 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
+import './ErrorMessage.css'
 
 const ErrorMessage = ({ error }) => {
+  if (!error) return null;
+  
   return (
-    <div>
-      <p style={{ color: 'red' }}>{error}</p>
+    <div className="error-message">
+      <span className="error-icon">⚠️</span>
+      <p className="error-text">{error}</p>
     </div>
   )
 }
