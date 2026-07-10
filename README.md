@@ -304,3 +304,6 @@ For issues, questions, or suggestions, please open an issue on the repository.
 **Last Updated:** July 10, 2026
 
 **Version:** 2.0.0 - Production Ready
+
+![Weather Dashboard Preview](./assets/dashboard-preview-1.png)
+![Weather Dashboard Preview](./assets/dashboard-preview-2.png)
