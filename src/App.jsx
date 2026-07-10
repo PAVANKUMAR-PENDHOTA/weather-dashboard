@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import SearchBar from './components/SearchBar';
 import WeatherCard from './components/WeatherCard';
 import ErrorMessage from './components/ErrorMessage';
@@ -13,12 +13,48 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [searchHistory, setSearchHistory] = useState(() => loadSearchHistory());
+  const [locationLoaded, setLocationLoaded] = useState(false);
 
-  // useEffect(() => {
-  //   const history = loadSearchHistory();
-  //   setSearchHistory(history);
-  // }, []);
+  // Load weather for current location on first render
+  useEffect(() => {
+    const loadCurrentLocationWeather = async () => {
+      if (navigator.geolocation) {
+        setLoading(true);
+        navigator.geolocation.getCurrentPosition(
+          async (position) => {
+            const { latitude, longitude } = position.coords;
+            try {
+              const response = await fetch(
+                `${import.meta.env.VITE_BASE_URL}?lat=${latitude}&lon=${longitude}&appid=${import.meta.env.VITE_WEATHER_API_KEY}&units=metric`
+              );
 
+              if (response.ok) {
+                const data = await response.json();
+                setWeather(data);
+                setLocationLoaded(true);
+              }
+            } catch (err) {
+              console.error("Failed to fetch weather for current location:", err);
+              setLocationLoaded(true);
+            } finally {
+              setLoading(false);
+            }
+          },
+          (error) => {
+            // Geolocation denied or unavailable, just skip and let user search
+            console.log("Geolocation permission denied or unavailable");
+            setLocationLoaded(true);
+            setLoading(false);
+          }
+        );
+      } else {
+        // Geolocation not supported
+        setLocationLoaded(true);
+      }
+    };
+
+    loadCurrentLocationWeather();
+  }, []);
   const handleSearch = async (city) => {
     setLoading(true);
     setError(null);
@@ -58,10 +94,6 @@ function App() {
       <div className="search-bar-container">
         <SearchBar onSearch={handleSearch} />
       </div>
-
-      {/* <div className="app-info">
-        <p className="app-description">Enter a city name to get the current weather information.</p>
-      </div> */}
 
       <div className="loader-container">
         {loading && <Loader />}
