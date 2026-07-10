@@ -20,17 +20,17 @@
   max-width: 350px;
   display: flex;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.95);
-  border: 2px solid rgba(102, 126, 234, 0.3);
+  background-color: var(--card-bg);
+  border: 2px solid var(--card-border);
   border-radius: 10px;
   padding: 0 12px;
   height: 42px;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px var(--overlay-dark);
 }
 
 .search-bar__input-wrapper:focus-within {
-  border-color: #667eea;
+  border-color: var(--accent-color);
   box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
   background-color: white;
 }
@@ -39,7 +39,7 @@
   font-size: 1.1rem;
   margin-right: 8px;
   flex-shrink: 0;
-  color: #667eea;
+  color: var(--accent-color);
 }
 
 .search-bar__input {
@@ -50,7 +50,7 @@
   padding: 0;
   outline: none;
   font-weight: 500;
-  color: #1f2937;
+  color: var(--text-primary);
   font-family: inherit;
   height: 100%;
 }
@@ -62,7 +62,7 @@
 
 .search-bar__button {
   padding: 10px 24px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-dark) 100%);
   color: white;
   border: none;
   border-radius: 10px;
@@ -81,7 +81,7 @@
 }
 
 .search-bar__button:hover {
-  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent-color) 100%);
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 }

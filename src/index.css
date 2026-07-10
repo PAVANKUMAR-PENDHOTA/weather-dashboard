@@ -4,11 +4,51 @@
   box-sizing: border-box;
 }
 
+/* Light Mode (Default) */
+:root[data-theme="light"],
+:root {
+  --bg-primary: linear-gradient(180deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  --bg-secondary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --text-primary: #1f2937;
+  --text-secondary: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.9);
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --card-border: rgba(102, 126, 234, 0.3);
+  --accent-color: #667eea;
+  --accent-dark: #764ba2;
+  --accent-light: #f093fb;
+  --error-color: #ff6b6b;
+  --error-light: rgba(255, 107, 107, 0.9);
+  --overlay-light: rgba(255, 255, 255, 0.1);
+  --overlay-dark: rgba(0, 0, 0, 0.1);
+  --cloud-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Dark Mode */
+:root[data-theme="dark"] {
+  --bg-primary: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  --bg-secondary: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  --text-primary: #e0e0e0;
+  --text-secondary: #1a1a2e;
+  --text-muted: rgba(255, 255, 255, 0.8);
+  --card-bg: rgba(30, 30, 50, 0.95);
+  --card-border: rgba(102, 126, 234, 0.5);
+  --accent-color: #667eea;
+  --accent-dark: #5a7dd8;
+  --accent-light: #8fa3f5;
+  --error-color: #ff6b6b;
+  --error-light: rgba(255, 107, 107, 0.8);
+  --overlay-light: rgba(255, 255, 255, 0.05);
+  --overlay-dark: rgba(0, 0, 0, 0.3);
+  --cloud-color: rgba(255, 255, 255, 0.05);
+}
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--bg-secondary);
   min-height: 100vh;
-  color: #1f2937;
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 @keyframes float {

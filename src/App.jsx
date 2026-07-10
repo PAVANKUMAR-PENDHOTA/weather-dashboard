@@ -6,6 +6,7 @@ import ErrorMessage from './components/ErrorMessage';
 import Loader from './components/Loader';
 import SearchHistory from './components/SearchHistory';
 import { loadSearchHistory, addToSearchHistory } from './utils/helpers';
+import { getTheme, setTheme, toggleTheme as toggleThemeService, getThemeIcon } from './services/themeService';
 import './App.css';
 
 function App() {
@@ -14,6 +15,18 @@ function App() {
   const [error, setError] = useState(null);
   const [searchHistory, setSearchHistory] = useState(() => loadSearchHistory());
   const [locationLoaded, setLocationLoaded] = useState(false);
+  const [theme, setThemeState] = useState(() => getTheme());
+
+  // Toggle theme function
+  const handleToggleTheme = () => {
+    const newTheme = toggleThemeService();
+    setThemeState(newTheme);
+  };
+
+  // Apply theme on mount
+  useEffect(() => {
+    setTheme(theme);
+  }, [theme]);
 
   // Load weather for current location on first render
   useEffect(() => {
@@ -88,8 +101,12 @@ function App() {
 
 
   return (
-    <div className="app-container">
-      <h1>🌦️ Weather Dashboard</h1>
+    <div className="app-container" data-theme={theme}>
+      <button className="theme-toggle-btn" onClick={handleToggleTheme} title="Toggle dark/light mode">
+        {getThemeIcon(theme)}
+      </button>
+
+      <h1 className="app-title">🌦️ Weather Dashboard</h1>
       
       <div className="search-bar-container">
         <SearchBar onSearch={handleSearch} />
